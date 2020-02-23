@@ -22,7 +22,7 @@ function scanGamepads() {
         return;
       }
       if (!currentButtonStates[gamepadIndex] || !currentButtonStates[gamepadIndex][buttonIndex]) {
-        emitter.dispatchEvent(new Event("button", { detail: `${gamepadIndex}-${buttonIndex}`}));
+        emitter.dispatchEvent(new CustomEvent("button", { detail: `${gamepadIndex}-${buttonIndex}`}));
       }
     });
   });
