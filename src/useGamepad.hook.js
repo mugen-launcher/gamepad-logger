@@ -27,18 +27,21 @@ export default function useGamepads() {
             }
             return buttons;
           });
-    
+
         nextButtonStates.forEach((buttons, gamepadIndex) => {
           buttons.forEach((buttonPressed, buttonIndex) => {
             if (!buttonPressed) {
               return;
             }
             if (!currentButtonStates[gamepadIndex] || !currentButtonStates[gamepadIndex][buttonIndex]) {
-              emitter.dispatchEvent(new CustomEvent("button", { detail: `${gamepadIndex}-${buttonIndex}`}));
+              const code = String.fromCharCode(65 + gamepadIndex) + buttonIndex;
+              console.log("Gamepad", code);
+              emitter.dispatchEvent(new Event(code));
+              emitter.dispatchEvent(new CustomEvent("button", { detail: code }));
             }
           });
         });
-    
+
         currentButtonStates = nextButtonStates;
       } catch (error) {
         console.error(error);
